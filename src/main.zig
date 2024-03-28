@@ -1,5 +1,6 @@
 const std = @import("std");
 const searches = @import("searches.zig");
+const sorts = @import("sorts.zig");
 
 pub fn main() !void {
     std.debug.print("HELLO WORLD!\n", .{});
@@ -22,4 +23,11 @@ test "BinarySearch" {
     const item1: u8 = 84;
     const result1 = searches.BinarySearch(u8, item1, &arr1);
     try std.testing.expect(result1 == 10);
+}
+
+test "BubbleSort" {
+    var arr = [_]u8{ 8, 4, 0, 1, 5, 6, 2, 3, 9, 7 };
+    const sorted = [_]u8{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    sorts.BubbleSort(u8, &arr);
+    try std.testing.expectEqualDeep(&arr, &sorted);
 }
