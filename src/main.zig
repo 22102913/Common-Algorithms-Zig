@@ -31,3 +31,10 @@ test "BubbleSort" {
     sorts.BubbleSort(u8, &arr);
     try std.testing.expectEqualDeep(&arr, &sorted);
 }
+
+test "InsertionSort" {
+    var arr = [_]u8{ 8, 4, 0, 1, 5, 6, 2, 3, 9, 7 };
+    const sorted = [_]u8{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    sorts.InsertionSort(u8, &arr);
+    try std.testing.expectEqualDeep(&arr, &sorted);
+}
