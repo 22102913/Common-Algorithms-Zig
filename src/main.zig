@@ -38,3 +38,10 @@ test "InsertionSort" {
     sorts.InsertionSort(u8, &arr);
     try std.testing.expectEqualDeep(&arr, &sorted);
 }
+
+test "QuickSort" {
+    var arr = [_]u8{ 7, 4, 6, 3, 2, 8, 9, 10 };
+    const sorted = [_]u8{ 2, 3, 4, 6, 7, 8, 9, 10 };
+    sorts.QuickSort(u8, &arr);
+    try std.testing.expectEqualDeep(&arr, &sorted);
+}

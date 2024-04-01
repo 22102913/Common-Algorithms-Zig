@@ -27,3 +27,41 @@ pub fn InsertionSort(T: type, arr: []T) void {
         }
     }
 }
+
+pub fn QuickSort(T: type, arr: []T) void {
+    if (arr.len <= 1)
+        return;
+
+    const pivotValue: T = arr[0];
+    var lower: u64 = 1;
+    var higher: u64 = arr.len - 1;
+    var temp: T = undefined;
+
+    while (true) {
+        // Move lower mark
+        while (lower <= higher and arr[lower] <= pivotValue) {
+            lower += 1;
+        }
+
+        // Move higher mark
+        while (higher >= lower and arr[higher] >= pivotValue) {
+            higher -= 1;
+        }
+
+        if (lower < higher) {
+            // Swap lower ad higher
+            temp = arr[lower];
+            arr[lower] = arr[higher];
+            arr[higher] = temp;
+        } else break;
+    }
+
+    // Swap pivot with higher
+    arr[0] = arr[higher];
+    arr[higher] = pivotValue;
+
+    // Sort lower partition
+    QuickSort(T, arr[0..higher]);
+    // Sort higher partition
+    QuickSort(T, arr[higher + 1 .. arr.len]);
+}
