@@ -1,6 +1,8 @@
 const std = @import("std");
 const searches = @import("searches.zig");
 const sorts = @import("sorts.zig");
+const stacks = @import("stacks.zig");
+const Allocator = std.mem.Allocator;
 
 pub fn main() !void {
     std.debug.print("HELLO WORLD!\n", .{});
@@ -44,4 +46,24 @@ test "QuickSort" {
     const sorted = [_]u8{ 2, 3, 4, 6, 7, 8, 9, 10 };
     sorts.QuickSort(u8, &arr);
     try std.testing.expectEqualDeep(&arr, &sorted);
+}
+
+test "Stack" {
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    const allocator = gpa.allocator();
+
+    const arr = [_]u8{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    var stack = try stacks.Stack(u8).init(allocator);
+    defer stack.deinit();
+
+    for (arr) |i| {
+        try stack.push(i);
+    }
+
+    var i = arr.len;
+    while (i > 0) : (i -= 1) {
+        const item = stack.pop();
+        try std.testing.expectEqual(item, arr[i - 1]);
+    }
 }
