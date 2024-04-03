@@ -2,6 +2,7 @@ const std = @import("std");
 const searches = @import("searches.zig");
 const sorts = @import("sorts.zig");
 const stacks = @import("stacks.zig");
+const queues = @import("queues.zig");
 const Allocator = std.mem.Allocator;
 
 pub fn main() !void {
@@ -65,5 +66,24 @@ test "Stack" {
     while (i > 0) : (i -= 1) {
         const item = stack.pop();
         try std.testing.expectEqual(item, arr[i - 1]);
+    }
+}
+
+test "Queue" {
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    const allocator = gpa.allocator();
+
+    const arr = [_]u8{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    var queue = try queues.Queue(u8).init(allocator);
+    defer queue.deinit();
+
+    for (arr) |i| {
+        try queue.enQueue(i);
+    }
+
+    for (0..arr.len) |i| {
+        const item = queue.deQueue();
+        try std.testing.expectEqual(item, arr[i]);
     }
 }
