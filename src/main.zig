@@ -9,6 +9,7 @@ pub fn main() !void {
     std.debug.print("HELLO WORLD!\n", .{});
 }
 
+// Tests to test the algorithms
 test "linearSearch" {
     const arr = [_]u8{ 7, 3, 8, 9, 3, 2, 4, 76, 2, 5, 7, 62, 35, 61, 21, 5 };
     const item: u8 = 5;
